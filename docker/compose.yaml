@@ -1,0 +1,32 @@
+services:
+  sample:
+    build:
+      dockerfile: Sample/Dockerfile
+      context: ..
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - step-ca
+
+  step-ca:
+    build: .
+    ports:
+      - 4443:443
+    environment:
+      DNS: step-ca
+    secrets:
+      - source: password
+        target: /home/step/secrets/password
+      - source: crt
+        target: /home/certs/ca.crt
+      - source: key
+        target: /home/certs/ca.key
+
+secrets:
+  password:
+    file: ./password
+  crt:
+    file: ./ca.crt
+  key:
+    file: ./ca.key

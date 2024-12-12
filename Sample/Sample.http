@@ -1,0 +1,11 @@
+@sample_HostAddress = https://localhost:8080
+
+GET {{sample_HostAddress}}/todos/
+Accept: application/json
+
+###
+
+GET {{sample_HostAddress}}/todos/1
+Accept: application/json
+
+###
